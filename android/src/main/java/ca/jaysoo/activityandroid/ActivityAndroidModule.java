@@ -15,28 +15,15 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 
 public class ActivityAndroidModule extends ReactContextBaseJavaModule implements LifecycleEventListener {
-  private Activity mCurrentActivity;
 
-  public ActivityAndroidModule(ReactApplicationContext reactContext, Activity activity) {
+  public ActivityAndroidModule(ReactApplicationContext reactContext) {
     super(reactContext);
-    mCurrentActivity = activity;
     reactContext.addLifecycleEventListener(this);
   }
 
   @Override
   public String getName() {
     return "ActivityAndroid";
-  }
-
-  @ReactMethod
-  public void moveTaskToBack(Callback onSuccess, Callback onError) {
-    boolean wasMoved = mCurrentActivity.moveTaskToBack(true);
-
-    if (wasMoved) {
-      onSuccess.invoke();
-    } else {
-      onError.invoke("Could not move activity to back");
-    }
   }
 
   @Override
@@ -57,4 +44,3 @@ public class ActivityAndroidModule extends ReactContextBaseJavaModule implements
   public void onHostDestroy() {
   }
 }
-
